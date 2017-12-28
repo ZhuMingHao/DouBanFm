@@ -11,63 +11,70 @@
       xmlns:views="using:DouBanFm.Views"
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
       mc:Ignorable="d">
-
-    <Controls:HamburgerMenu x:Name="MyHamburgerMenu">
-
-        <Controls:HamburgerMenu.PrimaryButtons>
-            <!--  mainpage button  -->
-            <Controls:HamburgerButtonInfo ClearHistory="True" PageType="views:MainPage">
-                <StackPanel Orientation="Horizontal">
-                    <SymbolIcon Width="48"
+    <RelativePanel Name="RootLayout">
+        <Controls:HamburgerMenu x:Name="MyHamburgerMenu" 
+                                RelativePanel.AlignLeftWithPanel="True" 
+                                RelativePanel.AlignRightWithPanel="True" 
+                                RelativePanel.AlignTopWithPanel="True" 
+                                RelativePanel.Above="Media">
+            <Controls:HamburgerMenu.PrimaryButtons>
+                <!--  mainpage button  -->
+                <Controls:HamburgerButtonInfo ClearHistory="True" PageType="views:MainPage">
+                    <StackPanel Orientation="Horizontal">
+                        <SymbolIcon Width="48"
                                 Height="48"
                                 Symbol="Home" />
-                    <TextBlock Margin="12,0,0,0"
+                        <TextBlock Margin="12,0,0,0"
                                VerticalAlignment="Center"
                                Text="Home" />
-                </StackPanel>
-            </Controls:HamburgerButtonInfo>
-        </Controls:HamburgerMenu.PrimaryButtons>
-
-        <Controls:HamburgerMenu.SecondaryButtons>
-            <!--  profile button  -->
-            <Controls:HamburgerButtonInfo ButtonType="Command">
-                <Interactivity:Interaction.Behaviors>
-                    <Core:EventTriggerBehavior EventName="Tapped">
-                        <behaviors:MessageDialogAction Title="Show profile" Content="This is an example of a Command-type hamburger button. It does not navigate, only raises the Tapped event for some custom implementation." />
-                    </Core:EventTriggerBehavior>
-                </Interactivity:Interaction.Behaviors>
-                <StackPanel Orientation="Horizontal">
-                    <ToolTipService.ToolTip>
-                        <TextBlock MaxWidth="225"
+                    </StackPanel>
+                </Controls:HamburgerButtonInfo>
+            </Controls:HamburgerMenu.PrimaryButtons>
+            <Controls:HamburgerMenu.SecondaryButtons>
+                <!--  profile button  -->
+                <Controls:HamburgerButtonInfo ButtonType="Command">
+                    <Interactivity:Interaction.Behaviors>
+                        <Core:EventTriggerBehavior EventName="Tapped">
+                            <behaviors:MessageDialogAction Title="Show profile" Content="This is an example of a Command-type hamburger button. It does not navigate, only raises the Tapped event for some custom implementation." />
+                        </Core:EventTriggerBehavior>
+                    </Interactivity:Interaction.Behaviors>
+                    <StackPanel Orientation="Horizontal">
+                        <ToolTipService.ToolTip>
+                            <TextBlock MaxWidth="225"
                                    Text="This is the tooltip for the Show Profile command button. Remember to localize."
                                    TextWrapping="Wrap" />
-                    </ToolTipService.ToolTip>
-                    <SymbolIcon Width="48"
+                        </ToolTipService.ToolTip>
+                        <SymbolIcon Width="48"
                                 Height="48"
                                 Symbol="Contact" />
-                    <TextBlock Margin="12,0,0,0"
+                        <TextBlock Margin="12,0,0,0"
                                VerticalAlignment="Center"
                                Text="User profile" />
-                </StackPanel>
-            </Controls:HamburgerButtonInfo>
-            <!--  settingspage button  -->
-            <Controls:HamburgerButtonInfo x:Name="SettingsButton"
+                    </StackPanel>
+                </Controls:HamburgerButtonInfo>
+                <!--  settingspage button  -->
+                <Controls:HamburgerButtonInfo x:Name="SettingsButton"
                                           PageParameter="0"
                                           PageType="views:SettingsPage">
-                <Controls:HamburgerButtonInfo.NavigationTransitionInfo>
-                    <SuppressNavigationTransitionInfo />
-                </Controls:HamburgerButtonInfo.NavigationTransitionInfo>
-                <StackPanel Orientation="Horizontal">
-                    <SymbolIcon Width="48"
+                    <Controls:HamburgerButtonInfo.NavigationTransitionInfo>
+                        <SuppressNavigationTransitionInfo />
+                    </Controls:HamburgerButtonInfo.NavigationTransitionInfo>
+                    <StackPanel Orientation="Horizontal">
+                        <SymbolIcon Width="48"
                                 Height="48"
                                 Symbol="Setting" />
-                    <TextBlock Margin="12,0,0,0"
+                        <TextBlock Margin="12,0,0,0"
                                VerticalAlignment="Center"
                                Text="Settings" />
-                </StackPanel>
-            </Controls:HamburgerButtonInfo>
-        </Controls:HamburgerMenu.SecondaryButtons>
-
-    </Controls:HamburgerMenu>
+                    </StackPanel>
+                </Controls:HamburgerButtonInfo>
+            </Controls:HamburgerMenu.SecondaryButtons>
+        </Controls:HamburgerMenu>
+        <Grid  Name="Media" RelativePanel.AlignBottomWithPanel="True" Background="LightGray"
+                   RelativePanel.AlignLeftWithPanel="True" 
+                   RelativePanel.AlignRightWithPanel="True"
+                   Height="44"/>
+    </RelativePanel>
+    
 
 </Page>
