@@ -7,6 +7,7 @@
       xmlns:behaviors="using:Template10.Behaviors"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="using:DouBanFm.Views"
+      xmlns:MyControls="using:DouBanFm.Controls"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:views="using:DouBanFm.Views"
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
@@ -70,11 +71,13 @@
                 </Controls:HamburgerButtonInfo>
             </Controls:HamburgerMenu.SecondaryButtons>
         </Controls:HamburgerMenu>
-        <Grid  Name="Media" RelativePanel.AlignBottomWithPanel="True" Background="LightGray"
+        
+        <MyControls:MusicTransportControl Name="Media" 
+                   RelativePanel.AlignBottomWithPanel="True"               
                    RelativePanel.AlignLeftWithPanel="True" 
                    RelativePanel.AlignRightWithPanel="True"
-                   Height="44"/>
+                   Height="60" >
+        </MyControls:MusicTransportControl>
     </RelativePanel>
     
-
 </Page>

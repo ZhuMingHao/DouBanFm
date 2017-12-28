@@ -9,7 +9,9 @@
     <Color x:Key="CustomColor">SteelBlue</Color>
     <Color x:Key="ContrastColor">White</Color>
     <Color x:Key="SystemAccentColor">SteelBlue</Color>
-
+    <Color x:Key="TransparentColor">Transparent</Color>
+    <Color x:Key="LightGrayColor">LightGray</Color>
+  
     <ResourceDictionary.ThemeDictionaries>
 
         <ResourceDictionary x:Key="Light">
@@ -19,6 +21,12 @@
             <SolidColorBrush x:Key="ExtendedSplashBackground" Color="{StaticResource CustomColor}" />
             <SolidColorBrush x:Key="ExtendedSplashForeground" Color="{StaticResource ContrastColor}" />
 
+            <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="{StaticResource TransparentColor}" />
+            <SolidColorBrush x:Key="ButtonBorderBrushPointerOver" Color="{StaticResource TransparentColor}" />
+
+            <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="{StaticResource TransparentColor}" />
+            <SolidColorBrush x:Key="ButtonBorderBrushPressed" Color="{StaticResource TransparentColor}" />
+         
             <Style TargetType="controls:HamburgerMenu">
                 <Setter Property="AccentColor" Value="{StaticResource CustomColor}" />
                 <Setter Property="VisualStateNarrowMinWidth" Value="{StaticResource NarrowMinWidth}" />
