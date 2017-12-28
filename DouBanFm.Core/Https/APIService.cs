@@ -30,7 +30,6 @@ namespace DouBanFm.Core.Https
             internal static readonly APIService instance = new APIService();
         }
         #endregion
-
         #region API Usage Get Grous.
         public async Task<List<Models.Group>> GetGroups()
         {
@@ -53,7 +52,7 @@ namespace DouBanFm.Core.Https
         }
         #endregion
         #region API Usage Get SongList.
-        public async Task<List< Models.Song>> GetSong()
+        public async Task<List<Models.Song>> GetSong()
         {
             try
             {
@@ -63,7 +62,28 @@ namespace DouBanFm.Core.Https
                 }
                 else
                 {
-                    var json = await GetJsonString(ServiceUrl.Song);     
+                    var json = await GetJsonString(ServiceUrl.Song);
+                    return JsonConvert.DeserializeObject<List<Models.Song>>(json.GetNamedValue("song").ToString());
+                }
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+        #endregion
+        #region Get NewSong
+        public async Task<List<Models.Song>> GetNewSong(string chanelid)
+        {
+            try
+            {
+                if (Tools.NetworkManager.Current.Network == 4)
+                {
+                    return null;
+                }
+                else
+                {
+                    var json = await GetJsonString(string.Format(ServiceUrl.NewSong, chanelid));
                     return JsonConvert.DeserializeObject<List<Models.Song>>(json.GetNamedValue("song").ToString());
                 }
             }
