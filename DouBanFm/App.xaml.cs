@@ -49,7 +49,7 @@ namespace DouBanFm
         {
             // TODO: add your long-running task here
             await NavigationService.NavigateAsync(typeof(Views.MainPage));
-
+          //  var group = await APIService.Instance.GetNewSong("1000");
         }
     }
 }
