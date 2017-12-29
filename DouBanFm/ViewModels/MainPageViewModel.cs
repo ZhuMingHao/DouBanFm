@@ -43,6 +43,7 @@ namespace DouBanFm.ViewModels
         {
             args.Cancel = false;
             await Task.CompletedTask;
+            var song = await DouBanFm.Core.Https.APIService.Instance.GetSong();
         }
 
         public void GotoDetailsPage() =>
