@@ -111,7 +111,11 @@
     <Compile Include="Https\BaseService.cs" />
     <Compile Include="Https\HttpManager.cs" />
     <Compile Include="Https\ServiceUrl.cs" />
+    <Compile Include="MediaItem.cs" />
+    <Compile Include="MediaList.cs" />
     <Compile Include="Models\ModelClass.cs" />
+    <Compile Include="MusicItem.cs" />
+    <Compile Include="PlaybackService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tools\NetWorkManager.cs" />
     <Compile Include="Tools\SingletonProvider.cs" />
@@ -127,6 +131,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Data\" />
+    <Folder Include="NewFolder1\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

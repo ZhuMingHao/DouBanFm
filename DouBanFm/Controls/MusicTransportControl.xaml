@@ -69,6 +69,7 @@
             <Button  Name="Next" Background="Transparent" >
                 <SymbolIcon Symbol="Next"/>
             </Button>
+            <MediaPlayerElement Name="mediaPlayerElement" AreTransportControlsEnabled="False"/>
         </StackPanel>
     </RelativePanel>
 </UserControl>
