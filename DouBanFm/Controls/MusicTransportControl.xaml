@@ -11,65 +11,87 @@
     d:DesignHeight="60"
     d:DesignWidth="1000">
     <UserControl.Resources>
+        <local:TimeConverter x:Key="MyTimeConverter" />
     </UserControl.Resources>
 
-    <RelativePanel Name="RootLayout">
-        <StackPanel Name="MusicInfoLayout" 
+    <RelativePanel Name="RootLayout" Background="LightGray">
+        <StackPanel Name="MusicInfoLayout"
                     Orientation="Horizontal"
                     RelativePanel.AlignLeftWithPanel="True"
                     RelativePanel.AlignBottomWithPanel="True"
                     RelativePanel.AlignTopWithPanel="True" MaxWidth="240">
-            <Image Height="50" Width="50" Margin="6" VerticalAlignment="Center"  Stretch="UniformToFill" Source="ms-appx:///Assets/song.jpg" />
+
+            <Ellipse x:Name="ellipse" Width="50" Height="50" RenderTransformOrigin="0.5,0.5" Margin="7,0,0,0">
+                <Ellipse.RenderTransform>
+                    <CompositeTransform />
+                </Ellipse.RenderTransform>
+                <Ellipse.Resources>
+                    <!--Storyboard是一个动画容器-->
+                    <Storyboard x:Name="EllStoryboard" RepeatBehavior="Forever">
+                        <DoubleAnimation Duration="0:0:20" To="360" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="ellipse" d:IsOptimized="True" />
+                    </Storyboard>
+                </Ellipse.Resources>
+                <!--这是用一张图片来填充这个椭圆形-->
+                <Ellipse.Fill>
+                    <ImageBrush x:Name="picture" ImageSource="{Binding AlbumArtUri,Mode=TwoWay}" />
+                </Ellipse.Fill>
+            </Ellipse>
+            <!--<Image Height="50" Width="50" Margin="6" VerticalAlignment="Center"  Stretch="UniformToFill" Source="{Binding AlbumArtUri,Mode=TwoWay}" />-->
+
             <Grid Name="MusicDetail">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
                 </Grid.RowDefinitions>
-                <TextBlock Name="SongTitle" Text="天天年年天" Padding="5"/>
-                <TextBlock Name="Songer" Grid.Row="1" Text="孙燕姿" Padding="5" FontSize="14"/>
+                <TextBlock Name="SongTitle" Text="{Binding Title,Mode=TwoWay}" Padding="5" />
+                <TextBlock Name="Songer" Grid.Row="1" Text="{Binding Artist,Mode=TwoWay}" Padding="5" FontSize="14" />
             </Grid>
         </StackPanel>
         <RelativePanel Name="MusicContrlLayout"
                     RelativePanel.RightOf="MusicInfoLayout"
                     RelativePanel.LeftOf="MusicControl"
                     RelativePanel.AlignBottomWithPanel="True"
-                    RelativePanel.AlignTopWithPanel="True"            
+                    RelativePanel.AlignTopWithPanel="True"
                     Margin="15">
             <TextBlock Name="CurrentTime"
-                           RelativePanel.AlignLeftWithPanel="True" 
+                           RelativePanel.AlignLeftWithPanel="True"
                             RelativePanel.AlignBottomWithPanel="True"
                             RelativePanel.AlignTopWithPanel="True"
-                           Text="{Binding ElementName=MusicSlider, Path=Value}" 
-                           FontSize="12" VerticalAlignment="Center" 
+                           Text="{Binding ZCurentTime}"
+                           FontSize="12" VerticalAlignment="Center"
                            Margin="10,0,5,2" />
-            <Slider Name="MusicSlider"               
-                    Height="40"   
+            <Slider Name="MusicSlider"
+                    Height="40"
                     VerticalAlignment="Center"
-                    RelativePanel.RightOf="CurrentTime"                
-                   RelativePanel.LeftOf="TotalTime"         
-                    Maximum="100" />
-            <TextBlock RelativePanel.AlignRightWithPanel="True" 
+                    IsEnabled="False"
+                   ValueChanged="MusicSlider_ValueChanged"
+                    RelativePanel.RightOf="CurrentTime"
+                   RelativePanel.LeftOf="TotalTime"
+                    Value="{Binding TCurentTime}"
+                    Maximum="{Binding MusicTime,Converter={StaticResource MyTimeConverter}}" />
+            <TextBlock RelativePanel.AlignRightWithPanel="True"
                        RelativePanel.AlignBottomWithPanel="True"
                        RelativePanel.AlignTopWithPanel="True"
-                       Name="TotalTime" Text="200" VerticalAlignment="Center" FontSize="12" Margin="5,0,10,2"/>
+                       Name="TotalTime" Text="{Binding MusicTime,Mode=TwoWay}"
+                       VerticalAlignment="Center"
+                       FontSize="12" Margin="5,0,10,3" />
         </RelativePanel>
-        <StackPanel Name="MusicControl" 
+        <StackPanel Name="MusicControl"
                         Orientation="Horizontal"
                     RelativePanel.AlignRightWithPanel="True"
                     RelativePanel.AlignBottomWithPanel="True"
                     RelativePanel.AlignTopWithPanel="True"
-                    Margin="10"
-                       >
+                    Margin="10">
             <Button Name="PlayOrPause" Click="PlayOrPause_Click"
-                    Background="Transparent" 
+                    Background="Transparent"
                     FontFamily="Segoe MDL2 Assets"
                     FontSize="20"
                     Content="&#xEDB5;">
             </Button>
-            <Button  Name="Next" Background="Transparent" >
-                <SymbolIcon Symbol="Next"/>
+            <Button  Name="Next" Background="Transparent" Click="Next_Click">
+                <SymbolIcon Symbol="Next" />
             </Button>
-            <MediaPlayerElement Name="mediaPlayerElement" AreTransportControlsEnabled="False"/>
+            <MediaPlayerElement Name="mediaPlayerElement" AreTransportControlsEnabled="False" />
         </StackPanel>
     </RelativePanel>
 </UserControl>
