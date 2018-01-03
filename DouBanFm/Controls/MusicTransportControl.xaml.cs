@@ -156,7 +156,7 @@ namespace DouBanFm.Controls
         {
             await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
             {
-                await PlaybackService.Instance.NextOne();
+                await PlaybackService.Instance.CurrentPlaylist.NextOne();
             });
         }
 
@@ -176,7 +176,7 @@ namespace DouBanFm.Controls
 
         private async void Next_Click(object sender, RoutedEventArgs e)
         {
-            await PlaybackService.Instance.NextOne();
+            await PlaybackService.Instance.CurrentPlaylist.NextOne();
         }
 
         private void MusicSlider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)

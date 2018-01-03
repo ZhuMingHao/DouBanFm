@@ -12,26 +12,20 @@ namespace DouBanFm.Core
     {
         private PlaybackService()
         {
-            Player = new MediaPlayer();
-            Player.AutoPlay = true;
+            Player = new MediaPlayer
+            {
+                AutoPlay = true
+            };
+
             CurrentPlaylist = new MediaList();
+
             CurrentPlaylist.CollectionChanged += (s, e) =>
             {
                 PlaybackList = CurrentPlaylist.ToPlaybackList();
             };
         }
 
-        public async Task NextOne()
-        {
-            var songs = await DouBanFm.Core.Https.APIService.Instance.GetSong();
-            songs.ForEach((s) =>
-            {
-                CurrentPlaylist.Clear();
-                CurrentPlaylist.Add(new MusicItem(s));
-            });
-
-        }
-        MediaPlaybackList PlaybackList
+        private MediaPlaybackList PlaybackList
         {
             get { return Player.Source as MediaPlaybackList; }
             set { Player.Source = value; }
@@ -44,17 +38,18 @@ namespace DouBanFm.Core
                 return Nested.instance;
             }
         }
+
         private class Nested
         {
             static Nested()
             {
             }
+
             internal static readonly PlaybackService instance = new PlaybackService();
         }
 
         public MediaPlayer Player { get; private set; }
 
         public MediaList CurrentPlaylist { get; set; }
-
     }
 }

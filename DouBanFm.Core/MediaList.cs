@@ -16,21 +16,32 @@ namespace DouBanFm.Core
     public class MediaList : ObservableCollection<MediaItem>
     {
         public string Title { get; set; }
+
         public MediaList()
         {
         }
+
         public async Task LoadFromDouBanAPIAsync()
         {
             this.Clear();
             var songs = await DouBanFm.Core.Https.APIService.Instance.GetSong();
-            songs.ForEach((s) =>
+            songs?.ForEach((s) =>
             {
                 Add(LoadItem(s));
             });
-
         }
 
-        MediaItem LoadItem(Models.Song song)
+        public async Task NextOne()
+        {
+            var songs = await DouBanFm.Core.Https.APIService.Instance.GetSong();
+            songs?.ForEach((s) =>
+            {
+                this.Clear();
+                this.Add(LoadItem(s));
+            });
+        }
+
+        private MediaItem LoadItem(Models.Song song)
         {
             return new MusicItem(song);
         }
