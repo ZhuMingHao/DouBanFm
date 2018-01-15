@@ -22,21 +22,19 @@ namespace DouBanFm.ViewModels
         }
 
         public ObservableCollection<Group> Groups { get; set; } = new ObservableCollection<Group>();
+        public ObservableCollection<Chl> SpecialChls { get; set; } = new ObservableCollection<Chl>();
 
         public override async Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> suspensionState)
         {
-            if (suspensionState.Any())
-            {
-                // Value = suspensionState[nameof(Value)]?.ToString();
-            }
             var list = await APIService.Instance.GetGroups();
             await Dispatcher.DispatchAsync(() =>
-            {
-                list.ForEach((s) =>
-                {
-                    Groups.Add(s);
-                });
-            });
+          {
+              list.First().chls.ForEach((s) => { SpecialChls.Add(s); });
+              list.RemoveAt(0);
+              list.ForEach((s) =>
+              {
+              });
+          });
 
             await Task.CompletedTask;
         }

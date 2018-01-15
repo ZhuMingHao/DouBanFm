@@ -8,13 +8,14 @@
       xmlns:comcontrols="using:Microsoft.Toolkit.Uwp.UI.Controls"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="using:DouBanFm.Views"
+      xmlns:MyControls="using:DouBanFm.Controls"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:vm="using:DouBanFm.ViewModels" mc:Ignorable="d">
     <Page.Resources>
     </Page.Resources>
 
     <Page.DataContext>
-        <vm:MainPageViewModel x:Name="ViewModel" />
+        <vm:MainPageViewModel x:Name="ViewModel"/>
     </Page.DataContext>
 
     <RelativePanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -27,7 +28,7 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <!--  TODO: change properties for narrow view  -->
-                        <Setter Target="stateTextBox.Text" Value="Narrow Visual State" />
+
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="VisualStateNormal">
@@ -36,7 +37,7 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <!--  TODO: change properties for normal view  -->
-                        <Setter Target="stateTextBox.Text" Value="Normal Visual State" />
+
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="VisualStateWide">
@@ -45,7 +46,7 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <!--  TODO: change properties for wide view  -->
-                        <Setter Target="stateTextBox.Text" Value="Wide Visual State" />
+
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -62,8 +63,28 @@
                 <AppBarButton Click="{x:Bind ViewModel.GotoAbout}" Label="About" />
             </controls:PageHeader.SecondaryCommands>
         </controls:PageHeader>
+        <ListView RelativePanel.Below="pageHeader" 
+                         RelativePanel.AlignLeftWithPanel="True"
+                        RelativePanel.AlignRightWithPanel="True"
+                         Height="400"  Background="Red"
+                  
+                  ItemsSource="{Binding SpecialChls}">
+            <ListView.ItemTemplate >
+                <DataTemplate>
+                    <Grid Height="100" Width="75">
+                        <MyControls:MusicItemControl Url="{Binding corver}" MusicInfo="{Binding name}">
+                        </MyControls:MusicItemControl>
+                        <!--<MyControls:MusicItemControl 
+                            Url="{Binding cover}" 
+                            MusicInfo="{Binding info }">
+                        </MyControls:MusicItemControl>-->
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
 
-        <comcontrols:AdaptiveGridView Name="GroupsGrids" RelativePanel.AlignBottomWith="pageHeader"
+        </ListView>
+
+        <!--<comcontrols:AdaptiveGridView Name="GroupsGrids" RelativePanel.AlignBottomWith="pageHeader"
                                     ItemHeight="200"
                                       DesiredWidth="300"
                                       ItemsSource="{Binding }">
@@ -79,7 +100,8 @@
             <comcontrols:AdaptiveGridView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
-                        <!--<Grid.RowDefinitions>
+                        -->
+        <!--<Grid.RowDefinitions>
                             <RowDefinition Height="4" />
                             <RowDefinition  Height="1*" />
                         </Grid.RowDefinitions>
@@ -88,9 +110,10 @@
                             Style="{StaticResource RoundStyle}">
                         </comcontrols:RoundImageEx>
                         <TextBlock Text="{Binding name}" />-->
+        <!--
                     </Grid>
                 </DataTemplate>
             </comcontrols:AdaptiveGridView.ItemTemplate>
-        </comcontrols:AdaptiveGridView>
+        </comcontrols:AdaptiveGridView>-->
     </RelativePanel>
 </Page>
