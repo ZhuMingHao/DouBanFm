@@ -5,6 +5,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Template10.Services.NavigationService;
 using Windows.UI.Xaml.Navigation;
+using DouBanFm.Core.Https;
+using DouBanFm.Core;
+using System.Collections.ObjectModel;
+using DouBanFm.Core.Models;
 
 namespace DouBanFm.ViewModels
 {
@@ -14,19 +18,26 @@ namespace DouBanFm.ViewModels
         {
             if (Windows.ApplicationModel.DesignMode.DesignModeEnabled)
             {
-                Value = "Designtime value";
             }
         }
 
-        string _Value = "Gas";
-        public string Value { get { return _Value; } set { Set(ref _Value, value); } }
+        public ObservableCollection<Group> Groups { get; set; } = new ObservableCollection<Group>();
 
         public override async Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> suspensionState)
         {
             if (suspensionState.Any())
             {
-                Value = suspensionState[nameof(Value)]?.ToString();
+                // Value = suspensionState[nameof(Value)]?.ToString();
             }
+            var list = await APIService.Instance.GetGroups();
+            await Dispatcher.DispatchAsync(() =>
+            {
+                list.ForEach((s) =>
+                {
+                    Groups.Add(s);
+                });
+            });
+
             await Task.CompletedTask;
         }
 
@@ -34,7 +45,7 @@ namespace DouBanFm.ViewModels
         {
             if (suspending)
             {
-                suspensionState[nameof(Value)] = Value;
+                // suspensionState[nameof(Value)] = Value;
             }
             await Task.CompletedTask;
         }
@@ -47,7 +58,7 @@ namespace DouBanFm.ViewModels
         }
 
         public void GotoDetailsPage() =>
-            NavigationService.Navigate(typeof(Views.DetailPage), Value);
+            NavigationService.Navigate(typeof(Views.DetailPage));
 
         public void GotoSettings() =>
             NavigationService.Navigate(typeof(Views.SettingsPage), 0);
@@ -57,6 +68,5 @@ namespace DouBanFm.ViewModels
 
         public void GotoAbout() =>
             NavigationService.Navigate(typeof(Views.SettingsPage), 2);
-
     }
 }

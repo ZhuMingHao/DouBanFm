@@ -5,10 +5,13 @@
       xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
       xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
       xmlns:controls="using:Template10.Controls"
+      xmlns:comcontrols="using:Microsoft.Toolkit.Uwp.UI.Controls"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="using:DouBanFm.Views"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:vm="using:DouBanFm.ViewModels" mc:Ignorable="d">
+    <Page.Resources>
+    </Page.Resources>
 
     <Page.DataContext>
         <vm:MainPageViewModel x:Name="ViewModel" />
@@ -58,40 +61,36 @@
                 <AppBarButton Click="{x:Bind ViewModel.GotoPrivacy}" Label="Privacy" />
                 <AppBarButton Click="{x:Bind ViewModel.GotoAbout}" Label="About" />
             </controls:PageHeader.SecondaryCommands>
-
         </controls:PageHeader>
 
-        <controls:Resizer x:Name="parameterResizer" Margin="16,16,16,0"
-                          RelativePanel.AlignLeftWithPanel="True"
-                          RelativePanel.Below="pageHeader">
-
-            <TextBox MinWidth="150" MinHeight="62"
-                     Header="Parameter to pass"
-                     Text="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                     TextWrapping="Wrap">
-                <Interactivity:Interaction.Behaviors>
-                    <!--  enable submit on enter key  -->
-                    <Behaviors:KeyBehavior Key="Enter">
-                        <Core:CallMethodAction MethodName="GotoDetailsPage" TargetObject="{Binding}" />
-                    </Behaviors:KeyBehavior>
-                    <!--  focus on textbox when page loads  -->
-                    <Core:EventTriggerBehavior>
-                        <Behaviors:FocusAction />
-                    </Core:EventTriggerBehavior>
-                </Interactivity:Interaction.Behaviors>
-            </TextBox>
-
-        </controls:Resizer>
-
-        <Button x:Name="submitButton"
-                Click="{x:Bind ViewModel.GotoDetailsPage}" Content="Submit"
-                RelativePanel.AlignBottomWith="parameterResizer"
-                RelativePanel.RightOf="parameterResizer" />
-
-        <TextBlock x:Name="stateTextBox" Margin="16,16,0,0"
-                   RelativePanel.AlignLeftWith="parameterResizer"
-                   RelativePanel.Below="parameterResizer"
-                   Text="Current Visual State" />
-
+        <comcontrols:AdaptiveGridView Name="GroupsGrids" RelativePanel.AlignBottomWith="pageHeader"
+                                    ItemHeight="200"
+                                      DesiredWidth="300"
+                                      ItemsSource="{Binding }">
+            <comcontrols:AdaptiveGridView.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.HeaderTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding group_name}" />
+                        </DataTemplate>
+                    </GroupStyle.HeaderTemplate>
+                </GroupStyle>
+            </comcontrols:AdaptiveGridView.GroupStyle>
+            <comcontrols:AdaptiveGridView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <!--<Grid.RowDefinitions>
+                            <RowDefinition Height="4" />
+                            <RowDefinition  Height="1*" />
+                        </Grid.RowDefinitions>
+                        <comcontrols:RoundImageEx
+                            Source="{Binding cover}"
+                            Style="{StaticResource RoundStyle}">
+                        </comcontrols:RoundImageEx>
+                        <TextBlock Text="{Binding name}" />-->
+                    </Grid>
+                </DataTemplate>
+            </comcontrols:AdaptiveGridView.ItemTemplate>
+        </comcontrols:AdaptiveGridView>
     </RelativePanel>
 </Page>
